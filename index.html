@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8" />
+   <title>Swiper demo</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+   <!-- Link Swiper's CSS -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+
+<body>
+
+
+
+   <div class="open-popup">
+      <img src="img/testimg.jpg" class=".card__image" alt="">
+   </div>
+   <div class="open-popup">
+      <img src="img/unnamed.png" class=".card__image" alt="">
+   </div>
+
+
+
+   <div class="popup__bg">
+      <form class="popup">
+         <img src="img/testimg.jpg" width="5px" height="5px" class="close-popup">
+         <img class="popup__image" src="" alt="">
+      </form>
+   </div>
+
+
+   <style>
+      .popup__bg {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100vh;
+         background: rgba(0, 0, 0, 0.5);
+         opacity: 0;
+         pointer-events: none;
+         transition: 0.5s all;
+      }
+
+      .popup__bg.active {
+
+         opacity: 1;
+         pointer-events: all;
+         transition: 0.5s all;
+      }
+
+      .popup {
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%) scale(0);
+         background: #fff;
+         width: 400px;
+         padding: 25px;
+         transition: 0.5s all;
+      }
+
+      .popup.active {
+
+         transform: translate(-50%, -50%) scale(1);
+         transition: 0.5s all;
+      }
+
+
+      .close-popup {
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         cursor: pointer;
+      }
+
+      .popup label {
+         width: 100%;
+         margin-bottom: 25px;
+         display: flex;
+         flex-direction: column-reverse;
+      }
+
+      .popup .label__text {
+         font-size: 14px;
+         text-transform: uppercase;
+         font-weight: 500;
+         color: #cfd0d3;
+         margin-bottom: 5px;
+      }
+
+      .popup input {
+         height: 45px;
+         font-size: 18px;
+         border: none;
+         outline: none;
+         border-bottom: 1px solid #cfd0d3;
+      }
+
+      .popup input:focus {
+         border-bottom: 1px solid #2982ff;
+      }
+
+      .popup input:focus+.label__text {
+         color: #2982ff;
+      }
+
+      .popup textarea {
+         resize: none;
+         width: 100%;
+         height: 150px;
+         border: none;
+         outline: none;
+         border-bottom: 1px solid #cfd0d3;
+         font-size: 18px;
+         padding-top: 5px;
+      }
+
+      .popup textarea:focus {
+         border-bottom: 1px solid #2982ff;
+      }
+
+      .popup textarea:focus+.label__text {
+         color: #2982ff;
+      }
+
+      .popup button {
+         width: 100%;
+         height: 45px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         color: #fff;
+         font-size: 18px;
+         border: 2px solid #2982ff;
+         background: #2982ff;
+         cursor: pointer;
+         text-transform: uppercase;
+         transition: 0.5s all;
+      }
+
+      .popup button:hover {
+         background: #fff;
+         color: #2982ff;
+         transition: 0.5s all;
+      }
+   </style>
+
+   <script>
+      let popupBg = document.querySelector('.popup__bg'); // Фон попап окна
+      let popup = document.querySelector('.popup'); // Само окно
+      let openPopupButtons = document.querySelectorAll('.open-popup'); // Кнопки для показа окна
+      let closePopupButton = document.querySelector('.close-popup');
+
+      openPopupButtons.forEach((button) => { // Перебираем все кнопки
+         button.addEventListener('click', (e) => { // Для каждой вешаем обработчик событий на клик
+            e.preventDefault(); // Предотвращаем дефолтное поведение браузера
+            popupBg.classList.add('active'); // Добавляем класс 'active' для фона
+            popup.classList.add('active'); // И для самого окна
+         })
+      });
+
+      closePopupButton.addEventListener('click', () => { // Вешаем обработчик на крестик
+         popupBg.classList.remove('active'); // Убираем активный класс с фона
+         popup.classList.remove('active'); // И с окна
+      });
+
+      document.addEventListener('click', (e) => { // Вешаем обработчик на весь документ
+         if (e.target === popupBg) { // Если цель клика - фот, то:
+            popupBg.classList.remove('active'); // Убираем активный класс с фона
+            popup.classList.remove('active'); // И с окна
+         }
+      });
+
+      const cards = document.querySelectorAll(".open-popup");
+      cards.forEach((card) => {
+         card.addEventListener("click", (e) => {
+            let targetEl = e.target;
+            // let targetCardText = targetEl.querySelector(".card__text");
+            let targetCardImage = targetEl.querySelector("card__image");
+            // document.querySelector(".popup__text").textContent = targetCardText.textContent;
+            document.querySelector(".popup__image").src = targetCardImage.src;
+         });
+      });
+   </script>
+</body>
+
+</html>
